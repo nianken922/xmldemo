@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="trace" strict="true" name="LogConfig">
+    <Properties>
+        <Property name="filepath">./tmp/log4j2</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <RollingFile name="service"
+                     fileName="${filepath}/service.log"
+                     filePattern="${filepath}/bak/service-%d{yy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="3 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="hibernate"
+                     fileName="${filepath}/hibernate.log"
+                     filePattern="${filepath}/bak/hibernate-%d{yy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="3 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${filepath}/bak" maxDepth="1">
+                    <IfFileName glob="hibernate-*.log.gz"/>
+                    <IfLastModified age="3d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="activemq"
+                     fileName="${filepath}/activemq.log"
+                     filePattern="${filepath}/bak/activemq-%d{yy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="3 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${filepath}/bak" maxDepth="1">
+                    <IfFileName glob="activemq-*.log.gz"/>
+                    <IfLastModified age="3d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="quartz"
+                     fileName="${filepath}/quartz.log"
+                     filePattern="${filepath}/bak/quartz-%d{yy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="3 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${filepath}/bak" maxDepth="1">
+                    <IfFileName glob="quartz-*.log.gz"/>
+                    <IfLastModified age="3d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="broker"
+                     fileName="${filepath}/broker.log"
+                     filePattern="${filepath}/bak/broker-%d{yy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="3 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${filepath}/bak" maxDepth="1">
+                    <IfFileName glob="broker-*.log.gz"/>
+                    <IfLastModified age="3d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="producer"
+                     fileName="${filepath}/producer.log"
+                     filePattern="${filepath}/bak/producer-%d{yy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="3 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${filepath}/bak" maxDepth="1">
+                    <IfFileName glob="producer-*.log.gz"/>
+                    <IfLastModified age="3d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="consumer"
+                     fileName="${filepath}/consumer.log"
+                     filePattern="${filepath}/bak/consumer-%d{yy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d] - [%c] - [%highlight{%level}] - [%method] - [%t] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="3 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${filepath}/bak" maxDepth="1">
+                    <IfFileName glob="producer-*.log.gz"/>
+                    <IfLastModified age="3d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.apache.activemq" level="debug" additivity="false">
+            <AppenderRef ref="activemq"/>
+            <AppenderRef ref="stdout"/>
+        </Logger>
+
+        <Logger name="org.hibernate" level="debug" additivity="false">
+            <AppenderRef ref="hibernate"/>
+            <AppenderRef ref="stdout"/>
+        </Logger>
+
+        <Logger name="org.quartz" level="debug" additivity="false">
+            <AppenderRef ref="quartz"/>
+            <AppenderRef ref="stdout"/>
+        </Logger>
+
+        <Logger name="org.apache.activemq.broker" level="debug" additivity="false">
+            <AppenderRef ref="broker"/>
+            <AppenderRef ref="stdout"/>
+        </Logger>
+
+        <Logger name="com.ares.mq.jms.swift.SwiftMessageProducer" level="debug" additivity="false">
+            <AppenderRef ref="producer"/>
+            <AppenderRef ref="stdout"/>
+        </Logger>
+
+        <Logger name="com.ares.mq.jms.swift.SwiftMessageConsumer" level="debug" additivity="false">
+            <AppenderRef ref="consumer"/>
+            <AppenderRef ref="stdout"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="service"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>
