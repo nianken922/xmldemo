@@ -23,10 +23,12 @@ public class Country {
     }
     public void init()
     {
-        System.out.println("In init block of country");
+        System.out.println("In init block of country，nice");
+
     }
 
     public void destroy() {
         System.out.println("In destroy block of country");
+
     }
 }
